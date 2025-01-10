@@ -1,0 +1,33 @@
+syms r0 r1 s0 s1
+
+
+%% 1.
+
+s = tf('s');
+
+Gp = (s+0.972)*(s-1.1052) / ((s-1)*(s-0.8187)*(s-0.6703))
+
+Gm = -0.0042
+
+%%
+ 
+z = sym('z');
+
+Am = z*z - 1.235 * z + 1.4429;
+
+B = 0.08 *z + 0.02;
+
+A = z*z - z +0.07;
+
+A0 = z;
+
+R = r1*z + r0;
+
+S = s1*z + s0;
+
+eqn = simplify(A*R + B*S == Am*A0,'IgnoreAnalyticConstraints', true)
+
+sol = solve(eqn,z)
+
+
+solution = solve(eqn, [r0,r1,s0,s1])
